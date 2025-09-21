@@ -1,0 +1,23 @@
+{% extends "calc/base.html" %}
+{% block content %}
+  <form method="post" class="calc-form">
+    {% csrf_token %}
+    <input type="text" name="a" value="{{ a }}" placeholder="First number" />
+    <select name="op">
+      <option value="+" {% if op == '+' %}selected{% endif %}>+</option>
+      <option value="-" {% if op == '-' %}selected{% endif %}>−</option>
+      <option value="*" {% if op == '*' %}selected{% endif %}>×</option>
+      <option value="/" {% if op == '/' %}selected{% endif %}>÷</option>
+    </select>
+    <input type="text" name="b" value="{{ b }}" placeholder="Second number" />
+    <button type="submit">Calculate</button>
+  </form>
+
+  {% if error %}
+    <p class="error">⚠ {{ error }}</p>
+  {% endif %}
+
+  {% if result is not None and not error %}
+    <p class="result">Result: <strong>{{ result }}</strong></p>
+  {% endif %}
+{% endblock %}
